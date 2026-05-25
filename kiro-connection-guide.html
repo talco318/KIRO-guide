@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מדריך התחברות ל-Kiro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 50px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .header h1 span {
+            color: #667eea;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .toc {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 25px 35px;
+            margin-bottom: 40px;
+            border-right: 4px solid #667eea;
+        }
+
+        .toc h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .toc ol {
+            padding-right: 20px;
+        }
+
+        .toc li {
+            margin-bottom: 8px;
+        }
+
+        .toc a {
+            color: #555;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .toc a:hover {
+            color: #667eea;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .section-title .number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+
+        .section-title h2 {
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        .step {
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 20px 25px;
+            margin-bottom: 15px;
+            border-right: 3px solid #667eea;
+        }
+
+        .step h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .step p, .step li {
+            color: #555;
+        }
+
+        .step ol, .step ul {
+            padding-right: 25px;
+            margin-top: 8px;
+        }
+
+        .step li {
+            margin-bottom: 6px;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            direction: ltr;
+            text-align: left;
+            margin: 10px 0;
+            font-size: 0.95em;
+            overflow-x: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .code-block .copy-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 5px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8em;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: background 0.3s;
+        }
+
+        .code-block .copy-btn:hover {
+            background: #764ba2;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border: 1px solid #17a2b8;
+            color: #0c5460;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #28a745;
+            color: #155724;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            border: 1px solid #dc3545;
+            color: #721c24;
+        }
+
+        .alert .icon {
+            font-size: 1.3em;
+            flex-shrink: 0;
+        }
+
+        .option-box {
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .option-box h3 {
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .option-box .badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            padding: 3px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .option-box.alt {
+            border-color: #764ba2;
+        }
+
+        .option-box.alt h3 {
+            color: #764ba2;
+        }
+
+        .option-box.alt .badge {
+            background: #764ba2;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 18px;
+            text-align: right;
+            border: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            background: #f8f9ff;
+        }
+
+        td code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .faq {
+            margin-bottom: 15px;
+        }
+
+        .faq-question {
+            background: #f0f0f0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-answer {
+            padding: 15px 20px;
+            color: #555;
+        }
+
+        .faq-answer ul {
+            padding-right: 25px;
+            margin-top: 8px;
+        }
+
+        .faq-answer li {
+            margin-bottom: 5px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            color: #999;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+            color: #666;
+        }
+
+        .footer .contact {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            display: inline-block;
+            padding: 10px 30px;
+            border-radius: 25px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .flow-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .flow-arrow {
+            font-size: 1.5em;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚀 מדריך התחברות ל-<span>Kiro</span></h1>
+            <p>מדריך שלב-אחר-שלב להתקנה והתחברות</p>
+        </div>
+
+        <!-- Flow Diagram -->
+        <div class="flow-diagram">
+            <div class="flow-step">התקנת Kiro</div>
+            <div class="flow-arrow">←</div>
+            <div class="flow-step">משתמש AWS</div>
+            <div class="flow-arrow">←</div>
+            <div class="flow-step">הגדרת MFA</div>
+            <div class="flow-arrow">←</div>
+            <div class="flow-step">התחברות</div>
+        </div>
+
+        <!-- Prerequisites -->
+        <div class="section" style="border-bottom: 1px solid #eee; padding-bottom: 30px; margin-bottom: 30px;">
+            <div class="section-title">
+                <div class="number">📋</div>
+                <h2>לפני שמתחילים — מה צריך להכין?</h2>
+            </div>
+            <p style="color: #555; margin-bottom: 15px;">ודאו שכל הפריטים הבאים זמינים לכם <strong>לפני</strong> שאתם מתחילים את התהליך, כדי שלא תיתקעו באמצע:</p>
+            <table>
+                <tr>
+                    <th>מה צריך?</th>
+                    <th>למה זה משמש?</th>
+                </tr>
+                <tr>
+                    <td>חיבור לרשת הארגונית</td>
+                    <td>בדקו שיש לכם גישה לנתיב: <code>\\alms22\Programs\Kiro</code></td>
+                </tr>
+                <tr>
+                    <td>משתמש AWS פעיל</td>
+                    <td>התחברות ל-Kiro. אם אין לכם — <a href="mailto:MichalGr@molsa.gov.il?cc=talc%40molsa.gov.il&subject=%D7%91%D7%A7%D7%A9%D7%94%20%D7%9C%D7%A4%D7%AA%D7%99%D7%97%D7%AA%20%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9%20%D7%9C-KIRO%2F%20Amazon%20Q&body=%E2%80%8F%D7%94%D7%99%D7%99%2C%0A%E2%80%8F%D7%90%D7%A9%D7%9E%D7%97%20%D7%A9%D7%99%D7%A4%D7%AA%D7%97%D7%95%20%D7%A2%D7%91%D7%95%D7%A8%D7%99%20%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9%20%D7%9C-KIRO%2F%20Amazon%20Q.%0A%0A%E2%80%8F%D7%AA%D7%95%D7%93%D7%94%20%D7%A8%D7%91%D7%94.">צרו קשר</a></td>
+                </tr>
+                <tr>
+                    <td>גישה למייל (Outlook)</td>
+                    <td>קבלת קוד אימות להגדרת סיסמה בפעם הראשונה</td>
+                </tr>
+                <tr>
+                    <td>טלפון חכם עם אפליקציית Authenticator<br><strong>או</strong> תוכנת <a href="https://winauth.github.io/winauth/download.html" target="_blank">WinAuth</a> במחשב</td>
+                    <td>קבלת קודי אבטחה (MFA) — נדרש בכל התחברות</td>
+                </tr>
+            </table>
+
+            <div class="alert alert-danger" style="margin-top: 20px;">
+                <span class="icon">🚨</span>
+                <span><strong>חסר לכם אחד מהדברים הנ"ל?</strong> אם אין לכם חיבור לרשת הארגונית (גישה לנתיב <code style="background:#fff;color:#721c24;">\\alms22\Programs\Kiro</code>), ו/או אין לכם גישה למייל — <strong>פתחו פניה לתמיכה דרך SYSAID</strong>.</span>
+            </div>
+        </div>
+
+        <script>
+        function copyVal(id, btn) {
+            var text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(function() {
+                btn.textContent = '✅ הועתק!';
+                setTimeout(function() { btn.textContent = '📋 העתק'; }, 2000);
+            });
+        }
+        </script>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h2>📋 תוכן עניינים</h2>
+            <ol>
+                <li><a href="#section1">התקנת Kiro</a></li>
+                <li><a href="#section2">הכנת משתמש AWS</a></li>
+                <li><a href="#section3">הגדרת אימות דו-שלבי (MFA)</a></li>
+                <li><a href="#section4">התחברות ראשונה ל-AWS</a></li>
+                <li><a href="#section5">התחברות ל-Kiro</a></li>
+                <li><a href="#section6">פתרון בעיות נפוצות</a></li>
+                <li><a href="#section7">ומה עושים מחר? (התחברות חוזרת)</a></li>
+            </ol>
+        </div>
+
+        <!-- Quick Navigation -->
+        <div style="background: #f0f8ff; border: 2px solid #667eea; border-radius: 12px; padding: 25px; margin-bottom: 40px;">
+            <h3 style="color: #667eea; margin-bottom: 15px;">🧭 מאיפה מתחילים? בחרו את המצב שלכם:</h3>
+            <table style="margin: 0;">
+                <tr>
+                    <th>המצב שלכם</th>
+                    <th>מאיפה להתחיל</th>
+                </tr>
+                <tr>
+                    <td>🆕 אין לי כלום — מתחיל/ה מאפס</td>
+                    <td>התחילו מ<a href="#section1" style="font-weight: bold;">סעיף 1 — התקנת Kiro</a> ועקבו אחרי כל השלבים</td>
+                </tr>
+                <tr>
+                    <td>👤 יש לי משתמש AWS אבל עוד לא הגדרתי סיסמה או MFA</td>
+                    <td>התחילו מ<a href="#section1" style="font-weight: bold;">סעיף 1 — התקנת Kiro</a>, ואז דלגו ל<a href="#section3" style="font-weight: bold;">סעיף 3</a></td>
+                </tr>
+                <tr>
+                    <td>🔐 יש לי משתמש AWS עם סיסמה ו-MFA מוגדר</td>
+                    <td>התחילו מ<a href="#section1" style="font-weight: bold;">סעיף 1 — התקנת Kiro</a>, ואז דלגו ל<a href="#section5" style="font-weight: bold;">סעיף 5</a></td>
+                </tr>
+                <tr>
+                    <td>⚡ כבר עובד/ת עם Amazon Q ו-Kiro מותקן</td>
+                    <td>דלגו ישירות ל<a href="#section5" style="font-weight: bold;">סעיף 5 — התחברות ל-Kiro</a></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Section 1: Installation -->
+        <div class="section" id="section1">
+            <div class="section-title">
+                <div class="number">1</div>
+                <h2>התקנת Kiro</h2>
+            </div>
+
+            <div class="step">
+                <h3>שלב 1.1 — גישה לתיקיית ההתקנה</h3>
+                <p>פתחו <strong>תיקייה כלשהי</strong> במחשב (למשל "המחשב שלי" או "מסמכים"). למעלה, בשורה שבה מוצג שם התיקייה הנוכחית (לא בדפדפן — בסייר הקבצים של Windows), לחצו עליה והקלידו את הכתובת הבאה:</p>
+                <div class="code-block"><span id="cb-path">\\alms22\Programs\Kiro</span><button class="copy-btn" onclick="copyVal('cb-path', this)">📋 העתק</button></div>
+                <p>לחצו <strong>Enter</strong>. תיפתח תיקייה ברשת עם קובץ ההתקנה של Kiro.</p>
+            </div>
+
+            <div class="alert alert-warning">
+                <span class="icon">⚠️</span>
+                <span><strong>חשוב:</strong> זהו המקור היחיד להורדת Kiro. אין להוריד ממקור אחר.</span>
+            </div>
+
+            <div class="step">
+                <h3>שלב 1.2 — הרצת ההתקנה</h3>
+                <ol>
+                    <li>לחצו לחיצה כפולה על קובץ ההתקנה שבתיקייה (<strong>kiro-ide-0.11.28-stable-win32-x64</strong>)</li>
+                    <li>יפתח אשף ההתקנה — לחצו <strong>"Next"</strong></li>
+                    <li>בחרו את <strong>נתיב ההתקנה</strong> (מומלץ להשאיר את ברירת המחדל) ולחצו <strong>"Next"</strong></li>
+                    <li>אם מופיע מסך בחירת תיקייה בתפריט Start — לחצו <strong>"Next"</strong></li>
+                    <li>אם מוצעת אפשרות ליצור <strong>קיצור דרך על שולחן העבודה</strong> — סמנו אותה ולחצו <strong>"Next"</strong></li>
+                    <li>לחצו <strong>"Install"</strong> כדי להתחיל את ההתקנה</li>
+                    <li>המתינו לסיום ההתקנה (עשוי לקחת דקה-שתיים)</li>
+                    <li>לחצו <strong>"Finish"</strong> לסיום</li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <h3>שלב 1.3 — הפעלה ראשונה</h3>
+                <ol>
+                    <li>פתחו את Kiro מתפריט <strong>Start</strong> או מקיצור הדרך שנוצר על שולחן העבודה</li>
+                    <li>בהפעלה הראשונה, Kiro יבקש מכם להתחבר — המשיכו לשלב הבא</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 2: AWS User -->
+        <div class="section" id="section2">
+            <div class="section-title">
+                <div class="number">2</div>
+                <h2>הכנת משתמש AWS</h2>
+            </div>
+
+            <div class="step">
+                <h3>שלב 2.1 — בדיקה: האם יש לכם משתמש AWS?</h3>
+                <p>שאלו את עצמכם: <strong>האם יש לי משתמש AWS קיים?</strong></p>
+            </div>
+
+            <div class="alert alert-success">
+                <span class="icon">✅</span>
+                <span><strong>אם כן</strong> — מעולה! עברו ל<a href="#section3">סעיף 3</a></span>
+            </div>
+
+            <div class="alert alert-danger">
+                <span class="icon">❌</span>
+                <span><strong>אם לא</strong> — המשיכו לשלב הבא</span>
+            </div>
+
+            <div class="step">
+                <h3>שלב 2.2 — יצירת משתמש AWS</h3>
+                <p>במידה ואין לכם משתמש AWS:</p>
+                <ol>
+                    <li>בדקו מול הממונה הישיר שלכם האם הוקם עבורכם משתמש</li>
+                    <li>אם לא הוקם משתמש — <strong>צרו קשר עם <a href="mailto:talc@molsa.gov.il?subject=%D7%91%D7%A7%D7%A9%D7%94%20%D7%9C%D7%A4%D7%AA%D7%99%D7%97%D7%AA%20%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9%20%D7%9C-KIRO%2F%20Amazon%20Q">טל כהן</a></strong> לצורך הקמת משתמש</li>
+                </ol>
+            </div>
+
+            <div class="alert alert-info">
+                <span class="icon">⏳</span>
+                <span>המתינו לאישור שהמשתמש הוקם לפני שתמשיכו לשלבים הבאים.</span>
+            </div>
+
+            <div class="step" style="border-right-color: #28a745;">
+                <h3>שלב 2.3 — איך יודעים שהמשתמש נוצר?</h3>
+                <p>כשנוצר עבורכם משתמש, תקבלו <strong>מייל מ-Amazon Q Developer</strong> שנראה כך:</p>
+                <div style="background: #f0f0f0; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin: 15px 0; direction: ltr; text-align: left; font-size: 0.9em; line-height: 1.6;">
+                    <p><strong>Hi [שם],</strong></p>
+                    <p>Your team has granted you a license to Amazon Q Developer Pro...</p>
+                    <p>Follow these steps to get started:</p>
+                    <ol style="padding-left: 20px;">
+                        <li>Download and install your preferred Q Developer client</li>
+                        <li>Log in with pro license
+                            <ul style="padding-left: 20px;">
+                                <li>a. Copy and paste this Start URL: <code>https://d-99676dadd0.awsapps.com/start</code></li>
+                                <li>b. Choose AWS Region: <code>eu-central-1</code></li>
+                            </ul>
+                        </li>
+                        <li>Authenticate through your team's identity provider
+                            <ul style="padding-left: 20px;">
+                                <li>a. Username: <code>[your-email]</code></li>
+                                <li>b. If your organization is using AWS IAM Identity Center and you haven't setup your user account, click "Forgot Password."</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                <p>אם קיבלתם מייל כזה — <strong>יש לכם משתמש AWS מוכן</strong> ✅ ותוכלו להמשיך לשלב הבא.</p>
+            </div>
+
+            <div class="alert alert-info">
+                <span class="icon">🤔</span>
+                <span><strong>למה המייל מ-Amazon Q ולא מ-Kiro?</strong> אל תיבהלו — המייל מגיע מאמזון (Amazon Q Developer), וזה בסדר גמור. זהו המנוע שדרכו Kiro עובד מאחורי הקלעים.</span>
+            </div>
+
+            <div class="alert alert-warning">
+                <span class="icon">📧</span>
+                <span><strong>לא קיבלתם מייל?</strong> בדקו בתיקיית הספאם/דואר זבל. אם עדיין לא הגיע — פנו ל<a href="mailto:talc@molsa.gov.il?subject=%D7%A2%D7%96%D7%A8%D7%94%20%D7%91%D7%94%D7%AA%D7%97%D7%91%D7%A8%D7%95%D7%AA%20%D7%9C-Kiro">טל כהן</a>.</span>
+            </div>
+        </div>
+
+        <!-- Section 3: MFA -->
+        <div class="section" id="section3">
+            <div class="section-title">
+                <div class="number">3</div>
+                <h2>הגדרת אימות דו-שלבי (MFA)</h2>
+            </div>
+
+            <div class="alert alert-warning">
+                <span class="icon">🔐</span>
+                <span><strong>חובה:</strong> החיבור ל-AWS דורש אימות דו-שלבי (MFA). הגדרת ה-MFA מתבצעת פעם אחת בלבד — בהתחברות הראשונה ל-AWS, אחרי שהגדרתם סיסמה (<a href="#step42a">שלב 4.2א</a>).</span>
+            </div>
+
+            <div class="alert alert-info">
+                <span class="icon">📌</span>
+                <span><strong>לפני שמתחילים:</strong> התקינו אחת מהאפליקציות הבאות <strong>עכשיו</strong>, כדי שתהיו מוכנים כשמסך הגדרת ה-MFA יופיע בהמשך.</span>
+            </div>
+
+            <!-- Option A: Microsoft Authenticator -->
+            <div class="option-box">
+                <div class="badge">📱 אפשרות א' — מומלץ</div>
+                <h3>Microsoft Authenticator (לטלפון חכם)</h3>
+                <p>מתאים למי שיש לו טלפון חכם</p>
+
+                <div class="step" style="margin-top: 15px;">
+                    <h3>התקנת האפליקציה</h3>
+                    <ol>
+                        <li>פתחו את חנות האפליקציות בטלפון:
+                            <ul>
+                                <li><strong>Android</strong> → Google Play Store</li>
+                                <li><strong>iPhone</strong> → App Store</li>
+                            </ul>
+                        </li>
+                        <li>חפשו: <strong>Microsoft Authenticator</strong> (או Google Authenticator / Duo Mobile)</li>
+                        <li>התקינו את האפליקציה</li>
+                    </ol>
+                </div>
+
+                <div class="alert alert-success">
+                    <span class="icon">✅</span>
+                    <span>מצוין! האפליקציה מותקנת. את ההגדרה עצמה (סריקת QR) תבצעו ב<a href="#step43">שלב 4.3</a>.</span>
+                </div>
+            </div>
+
+            <div class="divider">או</div>
+
+            <!-- Option B: WinAuth -->
+            <div class="option-box alt">
+                <div class="badge">💻 אפשרות ב'</div>
+                <h3>WinAuth (למחשב)</h3>
+                <p>מתאים למי שאין לו טלפון חכם או מעדיף לעבוד מהמחשב</p>
+
+                <div class="step" style="margin-top: 15px;">
+                    <h3>הורדת WinAuth</h3>
+                    <ol>
+                        <li>גשו לכתובת: <a href="https://winauth.github.io/winauth/download.html" target="_blank">https://winauth.github.io/winauth/download.html</a> <button class="copy-btn" style="background: #667eea; color: white; border: none; padding: 3px 10px; border-radius: 6px; cursor: pointer; font-size: 0.75em;" onclick="navigator.clipboard.writeText('https://winauth.github.io/winauth/download.html');this.textContent='✅ הועתק!';setTimeout(()=>this.textContent='📋 העתק',2000)">📋 העתק</button></li>
+                        <li>הורידו את הגרסה העדכנית ביותר</li>
+                        <li>חלצו את הקובץ לתיקייה נוחה (למשל: שולחן העבודה)</li>
+                    </ol>
+                </div>
+
+                <div class="alert alert-info">
+                    <span class="icon">💡</span>
+                    <span><strong>טיפ:</strong> WinAuth לא דורש התקנה — פשוט הריצו את הקובץ.</span>
+                </div>
+
+                <div class="alert alert-success">
+                    <span class="icon">✅</span>
+                    <span>מצוין! WinAuth מוכן. את ההגדרה עצמה (הזנת Secret Key) תבצעו ב<a href="#step43">שלב 4.3</a>.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: AWS Login -->
+        <div class="section" id="section4">
+            <div class="section-title">
+                <div class="number">4</div>
+                <h2>התחברות ראשונה ל-AWS</h2>
+            </div>
+
+            <div class="step">
+                <h3>שלב 4.1 — כניסה לפורטל AWS</h3>
+                <p>פתחו את הדפדפן וגשו לכתובת:</p>
+                <div class="code-block"><span id="cb-aws-url">https://d-99676dadd0.awsapps.com/start</span><button class="copy-btn" onclick="copyVal('cb-aws-url', this)">📋 העתק</button></div>
+                <p>יופיע מסך התחברות.</p>
+            </div>
+
+            <div class="step">
+                <h3>שלב 4.2 — הזנת פרטי משתמש</h3>
+                <ol>
+                    <li>הזינו את <strong>שם המשתמש</strong> (Username) שלכם</li>
+                    <li>הזינו את <strong>הסיסמה</strong> (Password) שלכם</li>
+                    <li>לחצו <strong>"Sign in"</strong></li>
+                </ol>
+            </div>
+
+            <div class="alert alert-warning">
+                <span class="icon">🔑</span>
+                <span><strong>התחברות ראשונה?</strong> אם זו הפעם הראשונה שאתם נכנסים ל-AWS, עקבו אחרי השלב הבא (4.2א). אם כבר התחברתם בעבר — דלגו ל<a href="#step43">שלב 4.3</a>.</span>
+            </div>
+
+            <div class="step" id="step42a" style="border-right-color: #ffc107;">
+                <h3>שלב 4.2א — התחברות ראשונה (Forgot Password)</h3>
+                <p>בהתחברות הראשונה, <strong>אין לכם עדיין סיסמה</strong>. למרות שזו הפעם הראשונה שלכם, המערכת "מכירה" אתכם אבל לא את הסיסמה שלכם — לכן לוחצים על "שכחתי סיסמה" כדי לקבוע סיסמה חדשה. <strong>זו הדרך הרשמית והנכונה.</strong></p>
+                <ol>
+                    <li>במסך ההתחברות, לחצו על הקישור <strong>"Forgot password?"</strong></li>
+                    <li>הזינו את <strong>שם המשתמש</strong> (Username) שלכם</li>
+                    <li>לחצו <strong>"Send code"</strong> או <strong>"Reset password"</strong></li>
+                    <li>בדקו את <strong>תיבת המייל</strong> שלכם — תקבלו הודעה עם קוד אימות</li>
+                    <li>הזינו את <strong>קוד האימות</strong> שקיבלתם במייל</li>
+                    <li>הגדירו <strong>סיסמה חדשה</strong> — בחרו סיסמה חזקה שתזכרו</li>
+                    <li>אשרו את הסיסמה ולחצו <strong>"Reset password"</strong></li>
+                    <li>חזרו למסך ההתחברות והיכנסו עם הסיסמה החדשה</li>
+                </ol>
+            </div>
+
+            <div class="alert alert-info">
+                <span class="icon">📧</span>
+                <span><strong>לא קיבלתם מייל?</strong> בדקו בתיקיית הספאם/דואר זבל. אם עדיין לא הגיע — פנו ל<a href="mailto:talc@molsa.gov.il?subject=%D7%A2%D7%96%D7%A8%D7%94%20%D7%91%D7%94%D7%AA%D7%97%D7%91%D7%A8%D7%95%D7%AA%20%D7%9C-Kiro">טל כהן</a>.</span>
+            </div>
+
+            <div class="step" id="step43">
+                <h3>שלב 4.3 — הגדרת MFA (בהתחברות ראשונה בלבד)</h3>
+                <p>אחרי שהגדרתם סיסמה והתחברתם בפעם הראשונה, יופיע מסך <strong>"Set up the authenticator app"</strong>:</p>
+                <div style="background: #f0f0f0; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin: 15px 0; direction: ltr; text-align: left; font-size: 0.9em; line-height: 1.8;">
+                    <p style="font-weight: bold; font-size: 1.1em;">Set up the authenticator app</p>
+                    <p style="color: #666;">Username: [your-email]</p>
+                    <hr style="margin: 10px 0; border-color: #ddd;">
+                    <p><strong>① </strong> Install either the Google Authenticator, Duo Mobile, or Authy app on your mobile device or computer.</p>
+                    <p><strong>② </strong> <span style="color: #0073bb;">Show QR code</span> — Use your virtual MFA app or your device's camera to scan the QR code. <span style="color: #0073bb;">Show secret key.</span></p>
+                    <p><strong>③ </strong> Enter the six digit code from your authenticator app</p>
+                    <p style="margin-top: 5px;">Authenticator code: <span style="background: #fff; border: 1px solid #ccc; padding: 3px 40px;">______</span></p>
+                    <p style="text-align: right; margin-top: 10px;"><span style="background: #eee; border: 1px solid #ccc; padding: 5px 15px; border-radius: 4px;">Assign MFA</span></p>
+                </div>
+                <p>בצעו את ההוראות לפי האפשרות שבחרתם ב<a href="#section3">שלב 3</a>:</p>
+            </div>
+
+            <!-- MFA Setup: Phone -->
+            <div class="step" style="border-right-color: #667eea;">
+                <h3>📱 אם בחרתם אפליקציית Authenticator (טלפון):</h3>
+                <ol>
+                    <li>במסך ה-AWS, לחצו על <strong>"Show QR code"</strong> (שלב ②)</li>
+                    <li>פתחו את אפליקציית ה-Authenticator בטלפון</li>
+                    <li>לחצו על <strong>"+"</strong> (הוספת חשבון) → בחרו <strong>"Other account"</strong></li>
+                    <li>סרקו את קוד ה-QR שמוצג על המסך</li>
+                    <li>האפליקציה תציג קוד בן <strong>6 ספרות</strong></li>
+                    <li>הזינו את הקוד בשדה <strong>"Authenticator code"</strong> (שלב ③)</li>
+                    <li>לחצו <strong>"Assign MFA"</strong></li>
+                </ol>
+            </div>
+
+            <!-- MFA Setup: WinAuth -->
+            <div class="step" style="border-right-color: #764ba2;">
+                <h3>💻 אם בחרתם WinAuth (מחשב):</h3>
+                <ol>
+                    <li>פתחו את <strong>WinAuth</strong> → לחצו <strong>"Add"</strong> → בחרו <strong>"Authenticator"</strong></li>
+                    <li>בשדה <strong>"Name"</strong> — הקלידו: <code>Kiro</code></li>
+                    <li>במסך ה-AWS, לחצו על <strong>"Show secret key"</strong> (שלב ②)</li>
+                    <li>העתיקו את המפתח הסודי והדביקו בשדה <strong>"Enter the Secret Code"</strong> ב-WinAuth</li>
+                    <li>ודאו שהאפשרות <strong>"Time-based"</strong> מסומנת</li>
+                    <li>לחצו <strong>"Verify Authenticator"</strong> — יופיע קוד בן 6 ספרות</li>
+                    <li>לחצו <strong>"OK"</strong> לשמירה ב-WinAuth</li>
+                    <li>העתיקו את הקוד והזינו אותו בשדה <strong>"Authenticator code"</strong> (שלב ③ במסך AWS)</li>
+                    <li>לחצו <strong>"Assign MFA"</strong></li>
+                </ol>
+            </div>
+
+            <div class="alert alert-success">
+                <span class="icon">🎉</span>
+                <span><strong>MFA הוגדר בהצלחה!</strong> מעכשיו, בכל התחברות תצטרכו רק להזין קוד מהאפליקציה/WinAuth.</span>
+            </div>
+
+            <div class="alert alert-info">
+                <span class="icon">⏱️</span>
+                <span><strong>טיפ:</strong> אם הקוד עומד להשתנות (הטיימר כמעט נגמר) — חכו רגע שיופיע קוד חדש ואז הקלידו אותו בנחת. יש לכם 30 שניות שלמות.</span>
+            </div>
+
+            <div class="step">
+                <h3>שלב 4.4 — אימות דו-שלבי (MFA) — בכל התחברות</h3>
+                <p>מהתחברות שנייה ואילך, יופיע מסך שמבקש קוד MFA:</p>
+                <ol>
+                    <li>פתחו את <strong>Microsoft Authenticator</strong> בטלפון או את <strong>WinAuth</strong> במחשב</li>
+                    <li>העתיקו את הקוד בן <strong>6 הספרות</strong></li>
+                    <li>הזינו את הקוד בשדה המתאים</li>
+                    <li>לחצו <strong>"Submit"</strong> / <strong>"Verify"</strong></li>
+                </ol>
+            </div>
+
+            <div class="alert alert-success">
+                <span class="icon">✅</span>
+                <span>אם הקוד נכון, תיכנסו לפורטל AWS בהצלחה!</span>
+            </div>
+
+        
+        </div>
+
+        <!-- Section 5: Kiro Login -->
+        <div class="section" id="section5">
+            <div class="section-title">
+                <div class="number">5</div>
+                <h2>התחברות ל-Kiro</h2>
+            </div>
+
+            <div class="step">
+                <h3>שלב 5.1 — פתיחת Kiro</h3>
+                <p>פתחו את <strong>Kiro</strong> מתפריט Start או משולחן העבודה.</p>
+            </div>
+
+            <div class="step">
+                <h3>שלב 5.2 — בחירת שיטת התחברות</h3>
+                <ol>
+                    <li>במסך ההתחברות של Kiro, לחצו על <strong>"Sign in"</strong></li>
+                    <li>ייפתח עמוד בדפדפן — לחצו על <strong>"Your organization"</strong></li>
+                    <li>בחרו <strong>"Sign in with IAM Identity Center"</strong></li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <h3>שלב 5.3 — הזנת פרטי IAM Identity Center</h3>
+                <p>עכשיו יופיע מסך שמבקש פרטי התחברות. הזינו את הפרטים הבאים:</p>
+                <table>
+                    <tr>
+                        <th>שדה</th>
+                        <th>ערך</th>
+                    </tr>
+                    <tr>
+                        <td>Start URL</td>
+                        <td><code id="cb-table-url">https://d-99676dadd0.awsapps.com/start</code> <button class="copy-btn" style="background:#667eea;color:white;border:none;padding:3px 10px;border-radius:6px;cursor:pointer;font-size:0.75em;" onclick="copyVal('cb-table-url',this)">📋 העתק</button></td>
+                    </tr>
+                    <tr>
+                        <td>Region (אזור שרתים)</td>
+                        <td><code id="cb-table-region">eu-central-1</code> <button class="copy-btn" style="background:#667eea;color:white;border:none;padding:3px 10px;border-radius:6px;cursor:pointer;font-size:0.75em;" onclick="copyVal('cb-table-region',this)">📋 העתק</button></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="alert alert-warning">
+                <span class="icon">⚠️</span>
+                <span><strong>חשוב מאוד:</strong> אל תנסו להקליד את הכתובת בעצמכם. פשוט <strong>העתיקו</strong> (Copy) <strong>והדביקו</strong> (Paste) מהטבלה למעלה. אפילו רווח אחד קטן בסוף יכול לגרום לשגיאה.</span>
+            </div>
+
+            <div class="step">
+                <h3>שלב 5.4 — אישור בדפדפן</h3>
+                <p>ברגע שתלחצו על התחברות ב-Kiro, <strong>יקפוץ לכם חלון בדפדפן</strong> (כמו כרום או אדג'). זה תקין!</p>
+                <ol>
+                    <li>אם אתם כבר מחוברים ל-AWS (מ<a href="#section4">שלב 4</a>) — האימות יתבצע אוטומטית</li>
+                    <li>אם לא — הזינו את פרטי המשתמש והקוד MFA כמתואר בשלב 4</li>
+                    <li>אשרו את ההרשאות שמבוקשות</li>
+                    <li>המתינו עד שתופיע הודעה ירוקה של <strong>"Success"</strong> או <strong>"Authorized"</strong></li>
+                </ol>
+            </div>
+
+            <div class="alert alert-warning">
+                <span class="icon">🔙</span>
+                <span><strong>חשוב:</strong> אחרי שמופיעה ההודעה הירוקה בדפדפן — <strong>מזערו את הדפדפן וחזרו לחלון של Kiro</strong> שחיכה לכם ברקע. אל תסגרו את Kiro! הוא עדיין פתוח מאחורי הדפדפן.</span>
+            </div>
+
+            <div class="step">
+                <h3>שלב 5.5 — סיום</h3>
+                <ol>
+                    <li>חזרו לחלון Kiro</li>
+                    <li>ההתחברות אמורה להסתיים בהצלחה</li>
+                    <li>כעת תוכלו להתחיל לעבוד עם Kiro! 🎉</li>
+                </ol>
+            </div>
+
+            <div class="alert alert-success">
+                <span class="icon">🎉</span>
+                <span><strong>מזל טוב!</strong> אתם מחוברים ל-Kiro ומוכנים לעבודה.</span>
+            </div>
+        </div>
+
+        <!-- Section 6: Troubleshooting -->
+        <div class="section" id="section6">
+            <div class="section-title">
+                <div class="number">6</div>
+                <h2>פתרון בעיות נפוצות</h2>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">❓ אני לא מצליח/ה להתחבר ל-AWS</div>
+                <div class="faq-answer">
+                    <ul>
+                        <li>ודאו שיש לכם משתמש AWS פעיל — במידה ואתם לא יודעים אם יש לכם, פנו ל<a href="mailto:talc@molsa.gov.il?subject=%D7%A2%D7%96%D7%A8%D7%94%20%D7%91%D7%94%D7%AA%D7%97%D7%91%D7%A8%D7%95%D7%AA%20%D7%9C-Kiro">טל כהן</a></li>
+                        <li>ודאו שאתם מקלידים את שם המשתמש והסיסמה הנכונים</li>
+                        <li>ודאו שקוד ה-MFA עדכני (מתחלף כל 30 שניות)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">❓ קוד ה-MFA לא מתקבל</div>
+                <div class="faq-answer">
+                    <ul>
+                        <li>ודאו שהשעון במחשב/בטלפון מסונכרן (שעה נכונה)</li>
+                        <li>נסו להמתין לקוד חדש ולהזין אותו מיד כשהוא מופיע</li>
+                        <li>אם משתמשים ב-WinAuth — ודאו שהמפתח הסודי הוזן נכון</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">❓ Kiro לא מצליח להתחבר</div>
+                <div class="faq-answer">
+                    <ul>
+                        <li>ודאו שהזנתם את ה-Start URL הנכון: <code>https://d-99676dadd0.awsapps.com/start</code></li>
+                        <li>ודאו שה-Region הוא <code>eu-central-1</code></li>
+                        <li>נסו להתחבר קודם דרך הדפדפן ל-AWS ורק אז לפתוח את Kiro</li>
+                        <li>סגרו את Kiro לחלוטין ופתחו מחדש</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">❓ אין לי גישה לתיקיית ההתקנה</div>
+                <div class="faq-answer">
+                    <ul>
+                        <li>ודאו שאתם מחוברים לרשת הארגונית</li>
+                        <li>נסו לגשת ל: <code>\\alms22\Programs\Kiro</code></li>
+                        <li>אם עדיין אין גישה — פנו לתמיכה טכנית</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 7: Reconnection -->
+        <div class="section" id="section7">
+            <div class="section-title">
+                <div class="number">7</div>
+                <h2>ומה עושים מחר? (התחברות חוזרת)</h2>
+            </div>
+
+            <div class="alert alert-success" style="font-size: 1.05em;">
+                <span class="icon">😌</span>
+                <span><strong>ממחר — החיים קלים.</strong> כל התהליך הארוך שעברתם (התקנה, Forgot Password, הגדרת MFA) הוא <strong>חד-פעמי</strong>. Kiro זוכר אתכם ואתם נשארים מחוברים — פשוט פתחו את Kiro ותתחילו לעבוד. 🚀</span>
+            </div>
+
+            <div class="alert alert-info">
+                <span class="icon">💡</span>
+                <span><strong>שימו לב:</strong> במקרים נדירים (למשל אחרי עדכון או תקופה ארוכה ללא שימוש), Kiro עשוי לבקש מכם להתחבר מחדש. במקרה כזה — פשוט לחצו "Sign in with IAM Identity Center", הזינו שם משתמש, סיסמה וקוד MFA, וזהו.</span>
+            </div>
+        </div>
+
+        <!-- Next Guide Link -->
+        <div class="section" style="border-bottom: none; text-align: center;">
+            <div class="alert alert-success" style="justify-content: center;">
+                <span class="icon">📖</span>
+                <span><strong>מחוברים בהצלחה?</strong> המשיכו ל<a href="kiro-usage-guide.html" style="font-weight: bold;">מדריך השימוש ב-Kiro</a> כדי ללמוד איך לעבוד עם הכלי.</span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>📞 לכל שאלה או בעיה נוספת:</p>
+            <a href="mailto:TalC@molsa.gov.il?subject=עזרה בהתחברות ל-Kiro" class="contact" style="text-decoration: none; color: white;">📧 שלחו מייל לטל כהן</a>
+            <p style="margin-top: 10px; font-size: 0.85em; color: #999;">TalC@molsa.gov.il</p>
+        </div>
+    </div>
+</body>
+</html>
