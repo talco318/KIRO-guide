@@ -816,35 +816,28 @@
 
             <div class="step">
                 <h3>שלב 5.2 — בחירת שיטת התחברות</h3>
-                <ol>
-                    <li>במסך ההתחברות של Kiro, לחצו על <strong>"Sign in"</strong></li>
-                    <li>ייפתח עמוד בדפדפן — לחצו על <strong>"Your organization"</strong></li>
-                    <li>בחרו <strong>"Sign in with IAM Identity Center"</strong></li>
-                </ol>
+                <p>במסך ההתחברות של Kiro, בחרו באפשרות <strong>"Sign in with your organization"</strong></p>
             </div>
 
             <div class="step">
-                <h3>שלב 5.3 — הזנת פרטי IAM Identity Center</h3>
-                <p>עכשיו יופיע מסך שמבקש פרטי התחברות. הזינו את הפרטים הבאים:</p>
-                <table>
-                    <tr>
-                        <th>שדה</th>
-                        <th>ערך</th>
-                    </tr>
-                    <tr>
-                        <td>Start URL</td>
-                        <td><code id="cb-table-url">https://d-99676dadd0.awsapps.com/start</code> <button class="copy-btn" style="background:#667eea;color:white;border:none;padding:3px 10px;border-radius:6px;cursor:pointer;font-size:0.75em;" onclick="copyVal('cb-table-url',this)">📋 העתק</button></td>
-                    </tr>
-                    <tr>
-                        <td>Region (אזור שרתים)</td>
-                        <td><code id="cb-table-region">eu-central-1</code> <button class="copy-btn" style="background:#667eea;color:white;border:none;padding:3px 10px;border-radius:6px;cursor:pointer;font-size:0.75em;" onclick="copyVal('cb-table-region',this)">📋 העתק</button></td>
-                    </tr>
-                </table>
+                <h3>שלב 5.3 — הזנת פרטי הארגון</h3>
+                <p>יופיע מסך עם השדה <strong>"Work email or start URL"</strong>. <strong style="color: #dc3545;">חשוב:</strong> יש להזין את ה-Start URL ולא את כתובת המייל!</p>
+                <ol>
+                    <li>בשדה <strong>"Work email or start URL"</strong> — הזינו את ה-Start URL:</li>
+                </ol>
+                <div class="code-block"><span id="cb-start-url">https://d-99676dadd0.awsapps.com/start</span><button class="copy-btn" onclick="copyVal('cb-start-url', this)">📋 העתק</button></div>
+                <ol start="2">
+                    <li>לחצו על <strong>"Select AWS region - optional"</strong> ובחרו:</li>
+                </ol>
+                <div class="code-block"><span id="cb-region">eu-central-1</span><button class="copy-btn" onclick="copyVal('cb-region', this)">📋 העתק</button></div>
+                <ol start="3">
+                    <li>לחצו <strong>"Continue"</strong></li>
+                </ol>
             </div>
 
-            <div class="alert alert-warning">
+            <div class="alert alert-danger">
                 <span class="icon">⚠️</span>
-                <span><strong>חשוב מאוד:</strong> אל תנסו להקליד את הכתובת בעצמכם. פשוט <strong>העתיקו</strong> (Copy) <strong>והדביקו</strong> (Paste) מהטבלה למעלה. אפילו רווח אחד קטן בסוף יכול לגרום לשגיאה.</span>
+                <span><strong>שימו לב:</strong> למרות ששם השדה הוא "Work email or start URL", יש להזין את ה-<strong>Start URL</strong> של הארגון ולא את כתובת המייל שלכם!</span>
             </div>
 
             <div class="step">
@@ -945,7 +938,7 @@
 
             <div class="alert alert-info">
                 <span class="icon">💡</span>
-                <span><strong>שימו לב:</strong> במקרים נדירים (למשל אחרי עדכון או תקופה ארוכה ללא שימוש), Kiro עשוי לבקש מכם להתחבר מחדש. במקרה כזה — פשוט לחצו "Sign in with IAM Identity Center", הזינו שם משתמש, סיסמה וקוד MFA, וזהו.</span>
+                <span><strong>שימו לב:</strong> במקרים נדירים (למשל אחרי עדכון או תקופה ארוכה ללא שימוש), Kiro עשוי לבקש מכם להתחבר מחדש. במקרה כזה — פשוט בחרו "Sign in with your organization", הזינו את ה-Start URL, שם משתמש, סיסמה וקוד MFA, וזהו.</span>
             </div>
         </div>
 
